@@ -1,122 +1,121 @@
-let nam = document.querySelector("#name")
-let num =document.querySelector("#num")
-let mm =document.querySelector("#mm")
-let yy =document.querySelector("#yy")
-let cvc =document.querySelector("#cvc")
-let btn =document.querySelector(".btn")
-let cardCode =document.querySelector(".code")
-let user =document.querySelector(".user-name")
-let month =document.querySelector(".month")
-let year =document.querySelector(".year")
-let input =document.querySelectorAll('input')
-let body=document.querySelector('body')
+const userName = document.querySelector('#userName')
+const cardName = document.querySelector('.cardName')
+const cardNumber = document.querySelector('#cardNumber')
+const code = document.querySelector('.code')
+const month = document.querySelector('#mm')
+const cardMonth = document.querySelector('.month')
+const year = document.querySelector('#yy')
+const cardYear = document.querySelector('.year')
+const cvc = document.querySelector('#cvc')
+const cardCvc = document.querySelector('.cardCvc')
+const btn = document.querySelector('.btn')
+const sec2 = document.querySelector('.section2')
+const sec3 = document.querySelector('.section3')
+const btn2 = document.querySelector('.btn2')
+const input = document.querySelector('form')
+const date = document.querySelector('.date')
 
-let NUM = 1234567890
-let str = ''
-console.log(typeof str);
 
-/*for(var i=0 ; i<input.length ; i++){
-console.log(input[i]);
-var a
-input[i].addEventListener('keydown' , ()=>{
-KeyboardEvent='a'
-})
+// to compare between the inout value and a condition (regex)
+function validateInput(input, regex) {
+    if (regex.test(input.value)) {
+        input.classList.remove('invalid');
+        input.classList.add('valid');
+        return true;
+    } else {
+        input.classList.remove('valid');
+        input.classList.add('invalid');
+        return false;
+    }
 }
-*/
-/* nam.addEventListener('click' , ()=>{
-    console.log('clicked');
-   nam.style.color='red'
-   console.log(nam.value)
-}) */
-/* nam.addEventListener('keypress' , (e)=>{
-    
-   nam.style.color='blue'
-   console.log(nam.value)
-   console.log(e.key); 
-   let k=[]
-   k.push(e.key)
-   console.log(k);
-})  */
-/* cardCode.innerText='1111 1111 1111 1111'
-var a ;
 
-nam.addEventListener('keypress' , (e)=>{
-    a=e.key
-    console.log(a);
+
+cardNumber.addEventListener('input', function() {
+    cardNumber.value = cardNumber.value.replace(/\D/g, '')//to input only numbers
+    code.textContent = cardNumber.value;
+    if(!cardNumber.value){
+        code.textContent = "0000 0000 0000 0000"
+        
+    }
+    validateInput(cardNumber, /^\d{16}$/)//validated value length= 16
+})
+userName.addEventListener('input', function() {
+    cardName.textContent = userName.value;
+    validateInput(userName, /.+/)
     
 })
-if(nam.event='click'){
-    console.log('click');
-} */
-/* if(KeyboardEvent='keypress'){
-    console.log('keypres');
-    console.log(KeyboardEvent.key);
-} */
-
-//finnaly worked
-for(var i =0 ; i<input.length;i++){
-let arr=[]
-input[i].addEventListener('keypress' , (e)=>{
-    let target=e.target
-    let key=e.key
-
-    console.log(target);
-    console.log(key);
-
-    arr.push(key)
-    console.log(arr);
-    
-  
-    if(target==input[0]){
-        //alert(target.getAttribute('id'))
-    user.innerText=arr.join("")
-    if(arr.length==3){
-        return arr[0]
-    }
-    }
-    if(target==input[1]){
-        //alert(target.getAttribute('id'))
-        cardCode.innerText=arr.join("")
-    }
-    if(target==input[2]){
-        //alert(target.getAttribute('id'))
-        month.innerText=arr.join("")
-    }
-    if(target==input[3]){
-        //alert(target.getAttribute('id'))
-        year.innerText=arr.join("")
-    }
-    
-
-
-    
-   /*  let check = key*1
-    if(check ==key){
-      console.log('numb' );
-    }else{
-      console.log('string')
-    } */
-  
+month.addEventListener('input', function() {
+    month.value = month.value.replace(/\D/g, '')
+    cardMonth.textContent = month.value;
+    validateInput(month, /^(0[1-9]|1[0-2])$/);
 })
-input[i].addEventListener('keydown' , (e)=>{
-    let key=e.key
-    let target=e.target
-    if(key=='Backspace'){
-        console.log('bs');
-        arr.pop(key)
-        if(target==input[0]){
-        user.innerText=arr.join("")
-    }
-        if(target==input[1]){
-        cardCode.innerText=arr.join("")
-    }
-        if(target==input[2]){
-        month.innerText=arr.join("")
-    }
-        if(target==input[3]){
-        year.innerText=arr.join("")
-    }
-    }
+year.addEventListener('input', function() {
+    year.value = year.value.replace(/\D/g, '')
+    cardYear.textContent = year.value;
+    validateInput(year, /^(2[1-9]|[3-9][0-9])$/)
 })
-}
+cvc.addEventListener('input', function() {
+    cvc.value = cvc.value.replace(/\D/g, '')
+    cardCvc.textContent = cvc.value;
+    validateInput(cvc, /^\d{3}$/);
+    
+})
+
+
+btn.addEventListener('click', () => {
+    const isNameValid = validateInput(userName, /.+/);
+    const isCardNumberValid = validateInput(cardNumber, /^\d{16}$/);
+    const isMonthValid = validateInput(month, /^(0[1-9]|1[0-2])$/);
+    const isYearValid = validateInput(year, /^(2[1-9]|[3-9][0-9])$/);
+    const isCvcValid = validateInput(cvc, /^\d{3}$/);
+
+    if (isNameValid && isCardNumberValid && isMonthValid && isYearValid && isCvcValid) {
+        sec2.style.display = 'none';
+        sec3.style.display = 'flex';
+    }
+});
+
+
+//return to the 1st page
+btn2.addEventListener('click', () => {
+    sec2.style.display = 'flex';
+    sec3.style.display = 'none';
+    input.reset();
+
+    code.textContent = "0000 0000 0000 0000";
+    cardName.textContent = "Jane Appleseed";
+    date.textContent = "00/00";
+    cardCvc.textContent = '000';
+
+    const inputs = [userName, cardNumber, month, year, cvc];
+    inputs.forEach(input => {
+        input.classList.remove('valid');
+        input.classList.remove('invalid');
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
