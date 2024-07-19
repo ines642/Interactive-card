@@ -67,6 +67,7 @@ label{
     font-weight: 600;
     position: relative;
     white-space: nowrap;
+    margin: 5px;
 }
 
 
@@ -85,15 +86,16 @@ input:focus{
     border: solid 0.1rem var(--Dark-grayishviolet);
 }
 .cnfrm{
-    width: 80%;
-    align-self: center;
-    margin-top: 1em;
+    width: 60%;
+    display: flex;
+    justify-content: center;
 
 
 }
 button{
     height: 3rem;
-    width: 100%;
+    width: 90%;
+    min-width: 300px;
     background: hsl(278, 68%, 11%);
     border-radius: 0.8rem;
     color: var(--White);
@@ -125,7 +127,6 @@ button{
     max-width: 360px;
     position: relative;
     left: 30%;
-    background: red;
 }
 .fcard{
     z-index: 4;
@@ -144,7 +145,6 @@ button{
 }
 .code{
     font-size: 1.4rem;
-
     
 }
 .id{
@@ -152,10 +152,6 @@ button{
     justify-content: space-between;
     font-size: 0.8rem;
 }
-.cardName{
-    width: auto;
-}
-
 
 .bcard{
     align-self: center;
@@ -205,12 +201,9 @@ width: 3rem;
 
 @media screen and (max-width:600px) {
     body{
-        height:100vh;
-        width: 100%;
         font-size: 1rem;
         flex-direction: column;
         align-items: center;
-
 
     }
     
